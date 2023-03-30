@@ -9,7 +9,7 @@ load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
 
 # Set up the OpenAI API key
-openai.api_key = "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"
+openai.api_key = api_key
 
 def generate_response(prompt, model="text-davinci-002", max_tokens=100, temperature=0.5):
     response = openai.Completion.create(
