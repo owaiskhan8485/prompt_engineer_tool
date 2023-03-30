@@ -9,7 +9,7 @@ load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
 
 # Set up the OpenAI API key
-openai.api_key = api_key
+openai.api_key = "Your API Key here..."
 
 def generate_response(prompt, model="text-davinci-002", max_tokens=100, temperature=0.5):
     response = openai.Completion.create(
@@ -24,9 +24,9 @@ def generate_response(prompt, model="text-davinci-002", max_tokens=100, temperat
 
 def on_generate_click():
     prompt = prompt_entry.get()
-    model = model_entry.get() or "text-davinci-002"
-    max_tokens = int(max_tokens_entry.get() or 100)
-    temperature = float(temperature_entry.get() or 0.5)
+    model = model_listbox.get(tk.ACTIVE)
+    max_tokens = int(max_tokens_scale.get())
+    temperature = float(temperature_scale.get())
 
     response = generate_response(prompt, model, max_tokens, temperature)
 
@@ -42,13 +42,16 @@ prompt_label = ttk.Label(window, text="Prompt:")
 prompt_entry = ttk.Entry(window, width=50)
 
 model_label = ttk.Label(window, text="Model:")
-model_entry = ttk.Entry(window, width=50)
+model_listbox = tk.Listbox(window, height=3)
+for item in ["text-davinci-002", "text-curie-001", "text-babbage-001"]:
+    model_listbox.insert(tk.END, item)
+model_listbox.activate(0)
 
 max_tokens_label = ttk.Label(window, text="Max tokens:")
-max_tokens_entry = ttk.Entry(window, width=50)
+max_tokens_scale = tk.Scale(window, from_=10, to=1000, orient=tk.HORIZONTAL, length=200)
 
 temperature_label = ttk.Label(window, text="Temperature:")
-temperature_entry = ttk.Entry(window, width=50)
+temperature_scale = tk.Scale(window, from_=0.1, to=1.0, orient=tk.HORIZONTAL, length=200, resolution=0.1)
 
 # Create "Generate" button
 generate_button = ttk.Button(window, text="Generate", command=on_generate_click)
@@ -62,13 +65,13 @@ prompt_label.grid(row=0, column=0, sticky="e")
 prompt_entry.grid(row=0, column=1, padx=10)
 
 model_label.grid(row=1, column=0, sticky="e")
-model_entry.grid(row=1, column=1)
+model_listbox.grid(row=1, column=1)
 
 max_tokens_label.grid(row=2, column=0, sticky="e")
-max_tokens_entry.grid(row=2, column=1)
+max_tokens_scale.grid(row=2, column=1)
 
 temperature_label.grid(row=3, column=0, sticky="e")
-temperature_entry.grid(row=3, column=1)
+temperature_scale.grid(row=3, column=1)
 
 generate_button.grid(row=4, column=1, pady=10)
 
