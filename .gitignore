@@ -1,0 +1,28 @@
+# Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyz
+
+# Environment files
+*.env
+*.venv
+*.virtualenv
+
+# Jupyter Notebook files
+.ipynb_checkpoints/
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
